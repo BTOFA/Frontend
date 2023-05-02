@@ -12,6 +12,7 @@ class TransactionLogViewController: UIViewController {
     // MARK: - Properties.
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var operations: [OperationModel]?
     
     // MARK: - viewDidLoad function.
     
@@ -30,6 +31,7 @@ class TransactionLogViewController: UIViewController {
             view.backgroundColor = .systemBackground
         }
         title = "Transactions history"
+        fetchOperations()
     }
     
     // MARK: - Setup iOS theme.
@@ -76,6 +78,15 @@ class TransactionLogViewController: UIViewController {
         tableView.pinLeft(to: view)
         tableView.pinRight(to: view)
     }
+    
+    // MARK: - fetchOperations function.
+    
+    private func fetchOperations() {
+        operations = [
+            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+100 ₽", date: "01.05.2023"),
+            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+30 BTOT", date: "03.05.2023"),
+            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+12 BTOT", date: "07.05.2023"),]
+    }
 }
 
 // MARK: - Delegate extension.
@@ -99,7 +110,7 @@ extension TransactionLogViewController : UITableViewDataSource {
     // MARK: - Setup cells number.
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return operations?.count ?? 0
     }
     
     // MARK: - Setup cells.
@@ -107,8 +118,8 @@ extension TransactionLogViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = "+100₽"
-        content.secondaryText = "18 april 2023 16:05"
+        content.text = operations?[indexPath.row].description
+        content.secondaryText = operations?[indexPath.row].date
         cell.contentConfiguration = content
         return cell
     }

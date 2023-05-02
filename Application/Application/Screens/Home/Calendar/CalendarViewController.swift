@@ -11,7 +11,8 @@ class CalendarViewController: UIViewController {
     
     // MARK: - Properties.
     
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var userTokens: [TokenPackModel]?
     
     // MARK: - viewDidLoad function.
     
@@ -31,6 +32,7 @@ class CalendarViewController: UIViewController {
             view.backgroundColor = .systemBackground
         }
         title = "Calendar"
+        fetchUserTokens()
     }
     
     // MARK: - Setup iOS theme.
@@ -77,6 +79,13 @@ class CalendarViewController: UIViewController {
         tableView.pinLeft(to: view)
         tableView.pinRight(to: view)
     }
+    
+    // MARK: - fetchUserTokens function.
+    
+    private func fetchUserTokens() {
+        userTokens = [
+            TokenPackModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), token: TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"), amount: 12)]
+    }
 }
 
 // MARK: - Delegate extension.
@@ -100,7 +109,7 @@ extension CalendarViewController : UITableViewDataSource {
     // MARK: - Setup cells number.
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return userTokens?.count ?? 0
     }
     
     // MARK: - Setup cells.
@@ -108,7 +117,8 @@ extension CalendarViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = "\(26 + indexPath.row) june 2023"
+        content.text = userTokens?[indexPath.row].token?.burnDate
+        content.secondaryText = userTokens?[indexPath.row].token?.name
         cell.contentConfiguration = content
         return cell
     }

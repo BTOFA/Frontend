@@ -19,7 +19,7 @@ func presentPopover(_ parentViewController: UIViewController, _ viewController: 
         pop.sourceRect = sender.bounds
         pop.permittedArrowDirections = arrowDirection
     }
-    Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (timer) in
+    Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
         viewController.dismiss(animated: true)
     }
 }

@@ -12,10 +12,7 @@ class OperationsViewController: UIViewController {
     // MARK: - Properties.
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private let presentedTokens = [
-        TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"),
-        TokenModel(id: 1, name: "BTOT", amount: 100, price: 50, emissionDate: "02.05.2023", burnDate: "11.05.2023", profit: 25, metadata: "-"),
-        TokenModel(id: 1, name: "BTOT", amount: 700, price: 17, emissionDate: "03.05.2023", burnDate: "11.05.2023", profit: 18, metadata: "-")]
+    private var presentedTokens: [TokenModel]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +27,7 @@ class OperationsViewController: UIViewController {
             view.backgroundColor = .systemBackground
         }
         setupNavBar()
+        fetchPresentedTokens()
         tableView.reloadData()
     }
     
@@ -87,6 +85,15 @@ class OperationsViewController: UIViewController {
         tableView.pinLeft(to: view)
         tableView.pinRight(to: view)
     }
+    
+    // MARK: - fetchPresentedTokens function.
+    
+    private func fetchPresentedTokens() {
+        presentedTokens = [
+            TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"),
+            TokenModel(id: 1, name: "BTOT", amount: 100, price: 50, emissionDate: "02.05.2023", burnDate: "11.05.2023", profit: 25, metadata: "-"),
+            TokenModel(id: 1, name: "BTOT", amount: 700, price: 17, emissionDate: "03.05.2023", burnDate: "11.05.2023", profit: 18, metadata: "-")]
+    }
 }
 
 // MARK: - Delegate extension.
@@ -94,7 +101,7 @@ class OperationsViewController: UIViewController {
 extension OperationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let buyTokenViewController = BuyTokenViewController()
-        buyTokenViewController.configure(model: presentedTokens[indexPath.row])
+        buyTokenViewController.configure(model: presentedTokens?[indexPath.row])
         navigationController?.pushViewController(buyTokenViewController, animated: true)
     }
 }
@@ -113,7 +120,7 @@ extension OperationsViewController: UITableViewDataSource {
     // MARK: - Cells number.
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presentedTokens.count
+        return presentedTokens?.count ?? 0
     }
     
     // MARK: - Setup cells.
@@ -121,8 +128,8 @@ extension OperationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tokenCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = presentedTokens[indexPath.row].name
-        content.secondaryText = presentedTokens[indexPath.row].emissionDate
+        content.text = presentedTokens?[indexPath.row].name
+        content.secondaryText = presentedTokens?[indexPath.row].emissionDate
         content.image = UIImage(named: "icon_small.svg")
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator

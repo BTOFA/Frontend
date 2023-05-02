@@ -12,6 +12,7 @@ class MyTokensViewController: UIViewController {
     // MARK: - Properties.
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var userTokens: [TokenPackModel]?
     
     // MARK: - viewDidLoad function.
     
@@ -31,6 +32,7 @@ class MyTokensViewController: UIViewController {
             view.backgroundColor = .systemBackground
         }
         title = "My Tokens"
+        fetchUserTokens()
     }
     
     // MARK: - Setup iOS theme.
@@ -79,6 +81,13 @@ class MyTokensViewController: UIViewController {
         tableView.pinLeft(to: view)
         tableView.pinRight(to: view)
     }
+    
+    // MARK: - fetchUserTokens function.
+    
+    private func fetchUserTokens() {
+        userTokens = [
+            TokenPackModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), token: TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"), amount: 12)]
+    }
 }
 
 // MARK: - Delegate extension.
@@ -103,32 +112,22 @@ extension MyTokensViewController: UITableViewDataSource {
     // MARK: - Cells number.
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    // MARK: - Setup cell height.
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return userTokens?.count ?? 0
     }
     
     // MARK: - Setup cells.
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tokenCell", for: indexPath)
-        customizeCell(cell: cell, text: "MyToken \(indexPath.row + 1)", image: UIImage(named: "icon_small.svg")!)
+        var content = cell.defaultContentConfiguration()
+        content.text = userTokens?[indexPath.row].token?.name
+        content.secondaryText = "\(userTokens?[indexPath.row].amount ?? 0)"
+        content.image = UIImage(named: "icon_small.svg")
+        cell.contentConfiguration = content
         return cell
     }
     
     private func customizeCell(cell: UITableViewCell, text: String, image: UIImage) {
-        var content = cell.defaultContentConfiguration()
-        content.text = text
-        content.image = image
-        cell.contentConfiguration = content
+        
     }
 }
-
-
-
-
-

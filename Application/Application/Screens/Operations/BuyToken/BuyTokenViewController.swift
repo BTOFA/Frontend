@@ -136,15 +136,15 @@ class BuyTokenViewController: UIViewController {
     
     // MARK: - configure function.
     
-    public func configure(model: TokenModel) {
-        title = model.name
+    public func configure(model: TokenModel?) {
+        title = model?.name
         infoLabel.text = """
-                        Amount: \(model.amount ?? 0)
-                        Price: \(model.price ?? 0)
-                        Emission date: \(model.emissionDate ?? "-")
-                        Burn date: \(model.burnDate ?? "-")
-                        Profit: \(model.profit ?? 0)
-                        Other information: \(model.metadata ?? "-")
+                        Amount: \(model?.amount ?? 0)
+                        Price: \(model?.price ?? 0)
+                        Emission date: \(model?.emissionDate ?? "-")
+                        Burn date: \(model?.burnDate ?? "-")
+                        Profit: \(model?.profit ?? 0)
+                        Other information: \(model?.metadata ?? "-")
                         """
     }
 }
