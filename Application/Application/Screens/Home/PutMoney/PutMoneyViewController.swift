@@ -83,6 +83,7 @@ class PutMoneyViewController: UIViewController {
         textField.keyboardType = .asciiCapableNumberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     
     // MARK: - setupSubmitButton function.
@@ -97,12 +98,26 @@ class PutMoneyViewController: UIViewController {
         submitButton.pinLeft(to: view.safeAreaLayoutGuide.leadingAnchor, 16)
         submitButton.pinRight(to: view.safeAreaLayoutGuide.trailingAnchor, 16)
         submitButton.addTarget(self, action: #selector(submitButtonPressed), for: .touchUpInside)
+        submitButton.isEnabled = false
     }
+    
+    // MARK: - submitButtonPressed function.
     
     @objc
     private func submitButtonPressed() {
         let money = UserDefaults.standard.integer(forKey: "account")
         UserDefaults.standard.set(money + ((textField.text as? NSString)?.integerValue ?? 0), forKey: "account")
         navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - textFieldDidChange function.
+    
+    @objc
+    private func textFieldDidChange(_ sender: UITextField) {
+        if textField.text!.count > 0 && textField.text!.count < 10 {
+            submitButton.isEnabled = true
+        } else {
+            submitButton.isEnabled = false
+        }
     }
 }
