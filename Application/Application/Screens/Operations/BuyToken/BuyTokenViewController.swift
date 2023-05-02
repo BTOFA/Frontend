@@ -80,7 +80,7 @@ class BuyTokenViewController: UIViewController {
         textField.setHeight(to: 50)
         let paddingView = UIView()
         let textLabel = UILabel()
-        textLabel.setWidth(to: 90)
+        textLabel.setWidth(to: 80)
         textLabel.setHeight(to: 40)
         paddingView.addSubview(textLabel)
         textLabel.pinTop(to: paddingView, 5)
@@ -98,6 +98,7 @@ class BuyTokenViewController: UIViewController {
         textField.keyboardType = .asciiCapableNumberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     
     // MARK: - setupBuyButton function.
@@ -112,6 +113,7 @@ class BuyTokenViewController: UIViewController {
         buyButton.configuration = .filled()
         buyButton.configuration?.cornerStyle = .medium
         buyButton.addTarget(self, action: #selector(buyButtonPressed), for: .touchUpInside)
+        buyButton.isEnabled = false
     }
     
     // MARK: - buyButtonPressed function.
@@ -121,8 +123,28 @@ class BuyTokenViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - textFieldDidChange function.
+    
+    @objc
+    private func textFieldDidChange(_ sender: UITextField) {
+        if textField.text!.count > 0 && textField.text!.count < 10 {
+            buyButton.isEnabled = true
+        } else {
+            buyButton.isEnabled = false
+        }
+    }
+    
+    // MARK: - configure function.
+    
     public func configure(model: TokenModel) {
         title = model.name
-        infoLabel.text = "Here will be all the necessary information about the \(model.name ?? "token")"
+        infoLabel.text = """
+                        Amount: \(model.amount ?? 0)
+                        Price: \(model.price ?? 0)
+                        Emission date: \(model.emissionDate ?? "-")
+                        Burn date: \(model.burnDate ?? "-")
+                        Profit: \(model.profit ?? 0)
+                        Other information: \(model.metadata ?? "-")
+                        """
     }
 }

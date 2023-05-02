@@ -24,6 +24,9 @@
 		4F5F2A3D29BA6B7D00D38E21 /* PaymentCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5F2A3C29BA6B7D00D38E21 /* PaymentCalendarTableViewCell.swift */; };
 		4F69D0AD29B7AC1D0008489A /* TokensWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F69D0AC29B7AC1D0008489A /* TokensWidget.swift */; };
 		4F69D0AF29B7AF410008489A /* TokenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F69D0AE29B7AF410008489A /* TokenTableViewCell.swift */; };
+		4F747CD62A0135F40034B4A2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F747CD52A0135F40034B4A2 /* UserModel.swift */; };
+		4F747CD82A0136A20034B4A2 /* OperationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F747CD72A0136A20034B4A2 /* OperationModel.swift */; };
+		4F747CDA2A0138760034B4A2 /* TokenPackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F747CD92A0138760034B4A2 /* TokenPackModel.swift */; };
 		4F82B2F229AF906400C1DD10 /* OperationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F82B2F129AF906400C1DD10 /* OperationsViewController.swift */; };
 		4F82B2F429AF907100C1DD10 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F82B2F329AF907100C1DD10 /* ProfileViewController.swift */; };
 		4F88E87F29DAD955007A4367 /* MyTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88E87E29DAD955007A4367 /* MyTokensViewController.swift */; };
@@ -79,6 +82,9 @@
 		4F5F2A3C29BA6B7D00D38E21 /* PaymentCalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCalendarTableViewCell.swift; sourceTree = "<group>"; };
 		4F69D0AC29B7AC1D0008489A /* TokensWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensWidget.swift; sourceTree = "<group>"; };
 		4F69D0AE29B7AF410008489A /* TokenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenTableViewCell.swift; sourceTree = "<group>"; };
+		4F747CD52A0135F40034B4A2 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		4F747CD72A0136A20034B4A2 /* OperationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationModel.swift; sourceTree = "<group>"; };
+		4F747CD92A0138760034B4A2 /* TokenPackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPackModel.swift; sourceTree = "<group>"; };
 		4F82B2F129AF906400C1DD10 /* OperationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationsViewController.swift; sourceTree = "<group>"; };
 		4F82B2F329AF907100C1DD10 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4F88E87E29DAD955007A4367 /* MyTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTokensViewController.swift; sourceTree = "<group>"; };
@@ -281,6 +287,9 @@
 			isa = PBXGroup;
 			children = (
 				4FFAF13829EEB789009E8CE0 /* TokenModel.swift */,
+				4F747CD52A0135F40034B4A2 /* UserModel.swift */,
+				4F747CD72A0136A20034B4A2 /* OperationModel.swift */,
+				4F747CD92A0138760034B4A2 /* TokenPackModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -463,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F747CDA2A0138760034B4A2 /* TokenPackModel.swift in Sources */,
 				4F29F14D29F2859600E60A00 /* EnterCodeViewController.swift in Sources */,
 				4F88E88129DAD974007A4367 /* CalendarViewController.swift in Sources */,
 				4F5F2A3D29BA6B7D00D38E21 /* PaymentCalendarTableViewCell.swift in Sources */,
@@ -479,6 +489,8 @@
 				4F8B5DBC29E70C4E0026AAFE /* BuyTokenViewController.swift in Sources */,
 				4F69D0AD29B7AC1D0008489A /* TokensWidget.swift in Sources */,
 				4F82B2F429AF907100C1DD10 /* ProfileViewController.swift in Sources */,
+				4F747CD62A0135F40034B4A2 /* UserModel.swift in Sources */,
+				4F747CD82A0136A20034B4A2 /* OperationModel.swift in Sources */,
 				4F69D0AF29B7AF410008489A /* TokenTableViewCell.swift in Sources */,
 				4FEE3BFC29E0630900C562ED /* EditProfileViewController.swift in Sources */,
 				4F5D4FDB29AE4063003EFAA1 /* AppDelegate.swift in Sources */,

@@ -12,6 +12,10 @@ class OperationsViewController: UIViewController {
     // MARK: - Properties.
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let presentedTokens = [
+        TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"),
+        TokenModel(id: 1, name: "BTOT", amount: 100, price: 50, emissionDate: "02.05.2023", burnDate: "11.05.2023", profit: 25, metadata: "-"),
+        TokenModel(id: 1, name: "BTOT", amount: 700, price: 17, emissionDate: "03.05.2023", burnDate: "11.05.2023", profit: 18, metadata: "-")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +94,7 @@ class OperationsViewController: UIViewController {
 extension OperationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let buyTokenViewController = BuyTokenViewController()
-        buyTokenViewController.configure(model: TokenModel(name: "MyToken \(indexPath.row + 1)"))
+        buyTokenViewController.configure(model: presentedTokens[indexPath.row])
         navigationController?.pushViewController(buyTokenViewController, animated: true)
     }
 }
@@ -109,28 +113,19 @@ extension OperationsViewController: UITableViewDataSource {
     // MARK: - Cells number.
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
-    }
-    
-    // MARK: - Setup cell height.
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return presentedTokens.count
     }
     
     // MARK: - Setup cells.
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tokenCell", for: indexPath)
-        customizeCell(cell: cell, text: "MyToken \(indexPath.row + 1)", image: UIImage(named: "icon_small.svg")!)
-        return cell
-    }
-    
-    private func customizeCell(cell: UITableViewCell, text: String, image: UIImage) {
         var content = cell.defaultContentConfiguration()
-        content.text = text
-        content.image = image
+        content.text = presentedTokens[indexPath.row].name
+        content.secondaryText = presentedTokens[indexPath.row].emissionDate
+        content.image = UIImage(named: "icon_small.svg")
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
+        return cell
     }
 }
