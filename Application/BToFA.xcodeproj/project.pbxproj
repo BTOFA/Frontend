@@ -12,6 +12,7 @@
 		4F29F14D29F2859600E60A00 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F29F14C29F2859600E60A00 /* EnterCodeViewController.swift */; };
 		4F44607529B1E54B000E0FAD /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F44607429B1E54B000E0FAD /* UIView+Pin.swift */; };
 		4F44607729B1F54A000E0FAD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F44607629B1F54A000E0FAD /* AppConstants.swift */; };
+		4F53CC732A06613200E3BC37 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F53CC722A06613200E3BC37 /* RegistrationViewController.swift */; };
 		4F5D4FDB29AE4063003EFAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D4FDA29AE4063003EFAA1 /* AppDelegate.swift */; };
 		4F5D4FDD29AE4063003EFAA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D4FDC29AE4063003EFAA1 /* SceneDelegate.swift */; };
 		4F5D4FDF29AE4063003EFAA1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D4FDE29AE4063003EFAA1 /* HomeViewController.swift */; };
@@ -62,6 +63,7 @@
 		4F29F14C29F2859600E60A00 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
 		4F44607429B1E54B000E0FAD /* UIView+Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		4F44607629B1F54A000E0FAD /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		4F53CC722A06613200E3BC37 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4F5D4FD729AE4063003EFAA1 /* Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5D4FDA29AE4063003EFAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F5D4FDC29AE4063003EFAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				4FFAF13E29EED5CE009E8CE0 /* WelcomeViewController.swift */,
 				4FFAF14029EEE1AB009E8CE0 /* EnterEmailViewController.swift */,
 				4F29F14C29F2859600E60A00 /* EnterCodeViewController.swift */,
+				4F53CC722A06613200E3BC37 /* RegistrationViewController.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				4F29F14D29F2859600E60A00 /* EnterCodeViewController.swift in Sources */,
 				4F88E88129DAD974007A4367 /* CalendarViewController.swift in Sources */,
 				4F82B2F229AF906400C1DD10 /* OperationsViewController.swift in Sources */,
+				4F53CC732A06613200E3BC37 /* RegistrationViewController.swift in Sources */,
 				4FFAF14429EEE65E009E8CE0 /* String+isEmail.swift in Sources */,
 				4F5D4FDF29AE4063003EFAA1 /* HomeViewController.swift in Sources */,
 				4FFAF14129EEE1AB009E8CE0 /* EnterEmailViewController.swift in Sources */,

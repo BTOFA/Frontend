@@ -121,15 +121,9 @@ class WelcomeViewController: UIViewController {
                 UserDefaults.standard.set(user.wallet.address, forKey: "address")
                 UserDefaults.standard.set(1000, forKey: "account")
                 DispatchQueue.main.async {
-                    let tabBarController = UITabBarController()
-                    tabBarController.tabBar.isTranslucent = true
-                    tabBarController.viewControllers = [
-                        SceneDelegate.createHomeViewController(),
-                        SceneDelegate.createOperationsViewController(),
-                        SceneDelegate.createProfileViewController()
-                    ]
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
-                    UINavigationController(rootViewController: tabBarController))
+                    let registerViewController = RegistrationViewController()
+                    let vc = UINavigationController(rootViewController: registerViewController)
+                    self.navigationController?.present(vc, animated: true)
                 }
             case .failure(let error):
                 print(error)
