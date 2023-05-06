@@ -13,7 +13,6 @@ class WelcomeViewController: UIViewController {
     // MARK: - Properties.
     
     private let signWithWalletButton = UIButton(type: .system)
-    private let signWithEmailButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     
     private var glaip = Glaip(
@@ -60,7 +59,6 @@ class WelcomeViewController: UIViewController {
     
     private func setupViews() {
         setupTitleLabeL()
-//        setupSignWithEmailButton()
         setupSignWithWalletButton()
     }
     
@@ -76,20 +74,6 @@ class WelcomeViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
     }
     
-    // MARK: - Setup Views.
-    
-    private func setupSignWithEmailButton() {
-        view.addSubview(signWithEmailButton)
-        signWithEmailButton.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor, 75)
-        signWithEmailButton.pinLeft(to: view, 16)
-        signWithEmailButton.pinRight(to: view, 16)
-        signWithEmailButton.setHeight(to: 50)
-        signWithEmailButton.configuration = .tinted()
-        signWithEmailButton.configuration?.cornerStyle = .capsule
-        signWithEmailButton.setTitle("Sign in with email", for: .normal)
-        signWithEmailButton.addTarget(self, action: #selector(signWithEmailButtonPressed), for: .touchUpInside)
-    }
-    
     private func setupSignWithWalletButton() {
         view.addSubview(signWithWalletButton)
         signWithWalletButton.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor, 75)
@@ -100,14 +84,6 @@ class WelcomeViewController: UIViewController {
         signWithWalletButton.configuration?.cornerStyle = .capsule
         signWithWalletButton.setTitle("Sign in with wallet", for: .normal)
         signWithWalletButton.addTarget(self, action: #selector(signWithWalletButtonPressed), for: .touchUpInside)
-    }
-    
-    // MARK: - signWithEmailButtonPressed function.
-    
-    @objc
-    private func signWithEmailButtonPressed() {
-        let enterEmailViewController = EnterEmailViewController()
-        navigationController?.pushViewController(enterEmailViewController, animated: true)
     }
     
     // MARK: - signWithWalletButtonPressed function.
@@ -121,14 +97,15 @@ class WelcomeViewController: UIViewController {
                 UserDefaults.standard.set(user.wallet.address, forKey: "address")
                 UserDefaults.standard.set(1000, forKey: "account")
                 DispatchQueue.main.async {
-                    let registerViewController = RegistrationViewController()
-                    let vc = UINavigationController(rootViewController: registerViewController)
+//                    let registerViewController = RegistrationViewController()
+//                    let vc = UINavigationController(rootViewController: registerViewController)
+                    let authorizationViewController = AuthorizationViewController()
+                    let vc = UINavigationController(rootViewController: authorizationViewController)
                     self.navigationController?.present(vc, animated: true)
                 }
             case .failure(let error):
                 print(error)
           }
         }
-        
     }
 }

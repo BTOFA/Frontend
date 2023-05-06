@@ -1,13 +1,13 @@
 //
-//  EnterEmailViewController.swift
+//  AuthorizationViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 18.04.2023.
+//  Created by Максим Кузнецов on 06.05.2023.
 //
 
 import UIKit
 
-class EnterEmailViewController: UIViewController {
+class AuthorizationViewController: UIViewController {
     
     // MARK: - Properties.
     
@@ -57,7 +57,7 @@ class EnterEmailViewController: UIViewController {
     // MARK: - setupNavBar function.
     
     private func setupNavBar() {
-        title = "Sign in"
+        title = "Enter password"
     }
     
     // MARK: - Setup Views.
@@ -71,20 +71,20 @@ class EnterEmailViewController: UIViewController {
     
     private func setupTextField() {
         view.addSubview(textField)
-        textField.pinBottom(to: view.centerYAnchor, 5)
+        textField.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
         textField.pinLeft(to: view.leadingAnchor, 16)
         textField.pinRight(to: view.trailingAnchor, 16)
         textField.setHeight(to: 50)
         let paddingView = UIView()
         let textLabel = UILabel()
-        textLabel.setWidth(to: 60)
+        textLabel.setWidth(to: 100)
         textLabel.setHeight(to: 40)
         paddingView.addSubview(textLabel)
         textLabel.pinTop(to: paddingView, 5)
         textLabel.pinBottom(to: paddingView, 5)
         textLabel.pinLeft(to: paddingView, 10)
         textLabel.pinRight(to: paddingView, 5)
-        textLabel.text = "Email:"
+        textLabel.text = "Password:"
         textLabel.textAlignment = .left
         textLabel.textColor = .label
         textLabel.font = .systemFont(ofSize: 18, weight: .medium)
@@ -92,10 +92,10 @@ class EnterEmailViewController: UIViewController {
         textField.leftViewMode = .always
         textField.backgroundColor = .systemBackground
         textField.layer.cornerRadius = 10
-        textField.keyboardType = .emailAddress
+        textField.keyboardType = .asciiCapableNumberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
-        textField.placeholder = "example@email.com"
+        textField.placeholder = "Enter password"
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     
@@ -103,11 +103,11 @@ class EnterEmailViewController: UIViewController {
     
     private func setupSubmitButton() {
         view.addSubview(submitButton)
-        submitButton.setTitle("Get code", for: .normal)
+        submitButton.setTitle("Log in", for: .normal)
         submitButton.configuration = .filled()
         submitButton.configuration?.cornerStyle = .medium
         submitButton.setHeight(to: 50)
-        submitButton.pinTop(to: view.centerYAnchor, 5)
+        submitButton.pinTop(to: textField.bottomAnchor, 10)
         submitButton.pinLeft(to: view.safeAreaLayoutGuide.leadingAnchor, 16)
         submitButton.pinRight(to: view.safeAreaLayoutGuide.trailingAnchor, 16)
         submitButton.addTarget(self, action: #selector(submitButtonPressed), for: .touchUpInside)
@@ -118,8 +118,9 @@ class EnterEmailViewController: UIViewController {
     
     @objc
     private func textFieldDidChange(_ sender: UITextField) {
-        if textField.text!.isEmail {
+        if textField.text!.count > 0 && textField.text!.count < 10 {
             submitButton.isEnabled = true
+            textField.tintColor = .tintColor
         } else {
             submitButton.isEnabled = false
         }
@@ -129,7 +130,14 @@ class EnterEmailViewController: UIViewController {
     
     @objc
     private func submitButtonPressed() {
-        let enterCodeViewController = EnterCodeViewController()
-        navigationController?.pushViewController(enterCodeViewController, animated: true)
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.isTranslucent = true
+        tabBarController.viewControllers = [
+            SceneDelegate.createHomeViewController(),
+            SceneDelegate.createOperationsViewController(),
+            SceneDelegate.createProfileViewController()
+        ]
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
+        UINavigationController(rootViewController: tabBarController))
     }
 }

@@ -51,9 +51,11 @@ class RegistrationViewController: UIViewController {
         if traitCollection.userInterfaceStyle == .light {
             view.backgroundColor = .secondarySystemBackground
             firstTextField.backgroundColor = .systemBackground
+            secondTextField.backgroundColor = .systemBackground
         } else {
             view.backgroundColor = .systemBackground
             firstTextField.backgroundColor = .secondarySystemBackground
+            secondTextField.backgroundColor = .secondarySystemBackground
         }
     }
     
@@ -179,5 +181,3 @@ class RegistrationViewController: UIViewController {
         UINavigationController(rootViewController: tabBarController))
     }
 }
-
-
