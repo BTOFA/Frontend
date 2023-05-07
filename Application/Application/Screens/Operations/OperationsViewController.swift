@@ -32,7 +32,7 @@ class OperationsViewController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.topItem?.title = "Transactions"
+        navigationController?.navigationBar.topItem?.title = "Buy"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

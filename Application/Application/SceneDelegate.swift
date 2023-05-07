@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     static func createOperationsViewController() -> UIViewController {
         let operationsViewController = OperationsViewController()
         operationsViewController.tabBarItem = UITabBarItem(
-            title: "Transacttions",
+            title: "Buy",
             image: UIImage(systemName: "briefcase"),
             tag: 0
         )
