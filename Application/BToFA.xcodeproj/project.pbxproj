@@ -10,7 +10,6 @@
 		4F07107C29B20C1D00F62899 /* TransactionLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F07107B29B20C1D00F62899 /* TransactionLogViewController.swift */; };
 		4F07107E29B212DD00F62899 /* PutMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F07107D29B212DD00F62899 /* PutMoneyViewController.swift */; };
 		4F44607529B1E54B000E0FAD /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F44607429B1E54B000E0FAD /* UIView+Pin.swift */; };
-		4F44607729B1F54A000E0FAD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F44607629B1F54A000E0FAD /* AppConstants.swift */; };
 		4F53CC732A06613200E3BC37 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F53CC722A06613200E3BC37 /* RegistrationViewController.swift */; };
 		4F53CC752A06729300E3BC37 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F53CC742A06729300E3BC37 /* AuthorizationViewController.swift */; };
 		4F5D4FDB29AE4063003EFAA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D4FDA29AE4063003EFAA1 /* AppDelegate.swift */; };
@@ -26,12 +25,14 @@
 		4F747CDD2A01508D0034B4A2 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F747CDC2A01508D0034B4A2 /* ApiService.swift */; };
 		4F82B2F229AF906400C1DD10 /* OperationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F82B2F129AF906400C1DD10 /* OperationsViewController.swift */; };
 		4F82B2F429AF907100C1DD10 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F82B2F329AF907100C1DD10 /* ProfileViewController.swift */; };
+		4F85AC4F2A0BB8E90097119D /* metamask-ios-sdk in Frameworks */ = {isa = PBXBuildFile; productRef = 4F85AC4E2A0BB8E90097119D /* metamask-ios-sdk */; };
 		4F88E87F29DAD955007A4367 /* MyTokensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88E87E29DAD955007A4367 /* MyTokensViewController.swift */; };
 		4F88E88129DAD974007A4367 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88E88029DAD974007A4367 /* CalendarViewController.swift */; };
 		4F8B5DBC29E70C4E0026AAFE /* BuyTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5DBB29E70C4E0026AAFE /* BuyTokenViewController.swift */; };
-		4F94546C29F67EB90047FA34 /* Glaip in Frameworks */ = {isa = PBXBuildFile; productRef = 4F94546B29F67EB90047FA34 /* Glaip */; };
 		4FC4A1BC29FBBAF100A1CD50 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4A1BB29FBBAF100A1CD50 /* PopoverViewController.swift */; };
 		4FC4A1BE29FBBC1B00A1CD50 /* UIViewController+adaptivePresentationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4A1BD29FBBC1B00A1CD50 /* UIViewController+adaptivePresentationStyle.swift */; };
+		4FE327F02A0BD88F004EA37B /* web3swift in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE327EF2A0BD88F004EA37B /* web3swift */; };
+		4FE327F32A0BEBA0004EA37B /* Glaip in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE327F22A0BEBA0004EA37B /* Glaip */; };
 		4FEE3BFC29E0630900C562ED /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEE3BFB29E0630900C562ED /* EditProfileViewController.swift */; };
 		4FEE3BFE29E064D100C562ED /* SetupNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEE3BFD29E064D100C562ED /* SetupNotificationsViewController.swift */; };
 		4FFAF13929EEB789009E8CE0 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFAF13829EEB789009E8CE0 /* TokenModel.swift */; };
@@ -60,18 +61,14 @@
 		4F07107B29B20C1D00F62899 /* TransactionLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionLogViewController.swift; sourceTree = "<group>"; };
 		4F07107D29B212DD00F62899 /* PutMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutMoneyViewController.swift; sourceTree = "<group>"; };
 		4F44607429B1E54B000E0FAD /* UIView+Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
-		4F44607629B1F54A000E0FAD /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4F53CC722A06613200E3BC37 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		4F53CC742A06729300E3BC37 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		4F5D4FD729AE4063003EFAA1 /* Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5D4FDA29AE4063003EFAA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F5D4FDC29AE4063003EFAA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4F5D4FDE29AE4063003EFAA1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4F5D4FE329AE4064003EFAA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F5D4FE829AE4064003EFAA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4F5D4FED29AE4064003EFAA1 /* ApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5D4FF129AE4064003EFAA1 /* ApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTests.swift; sourceTree = "<group>"; };
-		4F5D4FF729AE4064003EFAA1 /* ApplicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5D4FFB29AE4064003EFAA1 /* ApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUITests.swift; sourceTree = "<group>"; };
 		4F5D4FFD29AE4064003EFAA1 /* ApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4F747CD52A0135F40034B4A2 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -83,6 +80,9 @@
 		4F88E87E29DAD955007A4367 /* MyTokensViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTokensViewController.swift; sourceTree = "<group>"; };
 		4F88E88029DAD974007A4367 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		4F8B5DBB29E70C4E0026AAFE /* BuyTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTokenViewController.swift; sourceTree = "<group>"; };
+		4F9E20072A0BCFD800971879 /* ApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F9E20082A0BCFD800971879 /* ApplicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F9E20092A0BCFD800971879 /* Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC4A1BB29FBBAF100A1CD50 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		4FC4A1BD29FBBC1B00A1CD50 /* UIViewController+adaptivePresentationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+adaptivePresentationStyle.swift"; sourceTree = "<group>"; };
 		4FEE3BFB29E0630900C562ED /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +97,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F94546C29F67EB90047FA34 /* Glaip in Frameworks */,
+				4FE327F32A0BEBA0004EA37B /* Glaip in Frameworks */,
+				4F85AC4F2A0BB8E90097119D /* metamask-ios-sdk in Frameworks */,
+				4FE327F02A0BD88F004EA37B /* web3swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,41 +152,16 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		4F44607229B1E50A000E0FAD /* CommonUI */ = {
-			isa = PBXGroup;
-			children = (
-				4F44607329B1E516000E0FAD /* Extensions */,
-				4F44607629B1F54A000E0FAD /* AppConstants.swift */,
-			);
-			path = CommonUI;
-			sourceTree = "<group>";
-		};
-		4F44607329B1E516000E0FAD /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				4F44607429B1E54B000E0FAD /* UIView+Pin.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		4F5D4FCE29AE4063003EFAA1 = {
 			isa = PBXGroup;
 			children = (
 				4F5D4FD929AE4063003EFAA1 /* Application */,
 				4F5D4FF029AE4064003EFAA1 /* ApplicationTests */,
 				4F5D4FFA29AE4064003EFAA1 /* ApplicationUITests */,
-				4F5D4FD829AE4063003EFAA1 /* Products */,
+				4F9E20072A0BCFD800971879 /* ApplicationTests.xctest */,
+				4F9E20082A0BCFD800971879 /* ApplicationUITests.xctest */,
+				4F9E20092A0BCFD800971879 /* Application.app */,
 			);
-			sourceTree = "<group>";
-		};
-		4F5D4FD829AE4063003EFAA1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4F5D4FD729AE4063003EFAA1 /* Application.app */,
-				4F5D4FED29AE4064003EFAA1 /* ApplicationTests.xctest */,
-				4F5D4FF729AE4064003EFAA1 /* ApplicationUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4F5D4FD929AE4063003EFAA1 /* Application */ = {
@@ -193,7 +170,6 @@
 				4F747CDB2A0150740034B4A2 /* Api */,
 				4FFAF14229EEE647009E8CE0 /* Extensions */,
 				4FFAF13729EEB77B009E8CE0 /* Models */,
-				4F44607229B1E50A000E0FAD /* CommonUI */,
 				4F82B2F029AF8FE700C1DD10 /* Screens */,
 				4F5D4FDA29AE4063003EFAA1 /* AppDelegate.swift */,
 				4F5D4FDC29AE4063003EFAA1 /* SceneDelegate.swift */,
@@ -319,6 +295,7 @@
 		4FFAF14229EEE647009E8CE0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4F44607429B1E54B000E0FAD /* UIView+Pin.swift */,
 				4FFAF14329EEE65E009E8CE0 /* String+isEmail.swift */,
 				4FC4A1BD29FBBC1B00A1CD50 /* UIViewController+adaptivePresentationStyle.swift */,
 			);
@@ -342,10 +319,12 @@
 			);
 			name = Application;
 			packageProductDependencies = (
-				4F94546B29F67EB90047FA34 /* Glaip */,
+				4F85AC4E2A0BB8E90097119D /* metamask-ios-sdk */,
+				4FE327EF2A0BD88F004EA37B /* web3swift */,
+				4FE327F22A0BEBA0004EA37B /* Glaip */,
 			);
 			productName = Application;
-			productReference = 4F5D4FD729AE4063003EFAA1 /* Application.app */;
+			productReference = 4F9E20092A0BCFD800971879 /* Application.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4F5D4FEC29AE4064003EFAA1 /* ApplicationTests */ = {
@@ -363,7 +342,7 @@
 			);
 			name = ApplicationTests;
 			productName = ApplicationTests;
-			productReference = 4F5D4FED29AE4064003EFAA1 /* ApplicationTests.xctest */;
+			productReference = 4F9E20072A0BCFD800971879 /* ApplicationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4F5D4FF629AE4064003EFAA1 /* ApplicationUITests */ = {
@@ -381,7 +360,7 @@
 			);
 			name = ApplicationUITests;
 			productName = ApplicationUITests;
-			productReference = 4F5D4FF729AE4064003EFAA1 /* ApplicationUITests.xctest */;
+			productReference = 4F9E20082A0BCFD800971879 /* ApplicationUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -417,9 +396,11 @@
 			);
 			mainGroup = 4F5D4FCE29AE4063003EFAA1;
 			packageReferences = (
-				4F94546A29F67EB90047FA34 /* XCRemoteSwiftPackageReference "Glaip" */,
+				4F85AC4D2A0BB8E90097119D /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
+				4FE327EE2A0BD88F004EA37B /* XCRemoteSwiftPackageReference "web3swift" */,
+				4FE327F12A0BEBA0004EA37B /* XCRemoteSwiftPackageReference "Glaip" */,
 			);
-			productRefGroup = 4F5D4FD829AE4063003EFAA1 /* Products */;
+			productRefGroup = 4F5D4FCE29AE4063003EFAA1;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -469,7 +450,6 @@
 				4FC4A1BC29FBBAF100A1CD50 /* PopoverViewController.swift in Sources */,
 				4FFAF13F29EED5CE009E8CE0 /* WelcomeViewController.swift in Sources */,
 				4F07107C29B20C1D00F62899 /* TransactionLogViewController.swift in Sources */,
-				4F44607729B1F54A000E0FAD /* AppConstants.swift in Sources */,
 				4FC4A1BE29FBBC1B00A1CD50 /* UIViewController+adaptivePresentationStyle.swift in Sources */,
 				4F8B5DBC29E70C4E0026AAFE /* BuyTokenViewController.swift in Sources */,
 				4F82B2F429AF907100C1DD10 /* ProfileViewController.swift in Sources */,
@@ -807,7 +787,23 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4F94546A29F67EB90047FA34 /* XCRemoteSwiftPackageReference "Glaip" */ = {
+		4F85AC4D2A0BB8E90097119D /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MetaMask/metamask-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
+		4FE327EE2A0BD88F004EA37B /* XCRemoteSwiftPackageReference "web3swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/web3swift-team/web3swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		4FE327F12A0BEBA0004EA37B /* XCRemoteSwiftPackageReference "Glaip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maurovz/Glaip.git";
 			requirement = {
@@ -818,9 +814,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4F94546B29F67EB90047FA34 /* Glaip */ = {
+		4F85AC4E2A0BB8E90097119D /* metamask-ios-sdk */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4F94546A29F67EB90047FA34 /* XCRemoteSwiftPackageReference "Glaip" */;
+			package = 4F85AC4D2A0BB8E90097119D /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */;
+			productName = "metamask-ios-sdk";
+		};
+		4FE327EF2A0BD88F004EA37B /* web3swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FE327EE2A0BD88F004EA37B /* XCRemoteSwiftPackageReference "web3swift" */;
+			productName = web3swift;
+		};
+		4FE327F22A0BEBA0004EA37B /* Glaip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FE327F12A0BEBA0004EA37B /* XCRemoteSwiftPackageReference "Glaip" */;
 			productName = Glaip;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -16,9 +16,9 @@ class WelcomeViewController: UIViewController {
     private let titleLabel = UILabel()
     
     private var glaip = Glaip(
-         title: "Glaip Demo App",
-         description: "Demo app to demonstrate Web3 login",
-         supportedWallets: [.MetaMask])
+             title: "BToFA",
+             description: "Blockchain Tokenization of Financial Assets",
+             supportedWallets: [.MetaMask])
     
     // MARK: - viewDidLoad function.
     
