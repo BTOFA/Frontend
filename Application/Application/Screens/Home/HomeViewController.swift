@@ -383,23 +383,24 @@ class HomeViewController: UIViewController {
             view.backgroundColor = .systemBackground
         }
         setupNavBar()
+        tableView.reloadData()
         
-        let walletAddress = EthereumAddress(UserDefaults.standard.string(forKey: "address")!)
-        let contractAddress = EthereumAddress("0xF6449353Db59383a5eC4C7A752E7Dcf237692422")
-        let endpoint = "https://sepolia.infura.io/v3/00c0dc2e240c40c392f4c2522526babd"
-        let contractMethod = "balanceOf"
-        let parameters = [UserDefaults.standard.string(forKey: "address")!]
-        let extraData = Data()
-        Task {
-            let web3 = try await web3swift.Web3(provider: Web3HttpProvider(url: URL(string: endpoint)!, network: .Custom(networkID: 11155111)))
-            let contract = web3.contract(Abi, at: contractAddress, abiVersion: 2)!
-            print(contract.contract.allEvents)
-            let tx = contract.createWriteOperation(contractMethod, parameters: parameters, extraData: extraData)!
-            tx.transaction.from = walletAddress
-            let call = try await tx.callContractMethod()
-            balance = String(describing: call["0"]!)
-            tableView.reloadData()
-        }
+//        let walletAddress = EthereumAddress(UserDefaults.standard.string(forKey: "address")!)
+//        let contractAddress = EthereumAddress("0xF6449353Db59383a5eC4C7A752E7Dcf237692422")
+//        let endpoint = "https://sepolia.infura.io/v3/00c0dc2e240c40c392f4c2522526babd"
+//        let contractMethod = "balanceOf"
+//        let parameters = [UserDefaults.standard.string(forKey: "address")!]
+//        let extraData = Data()
+//        Task {
+//            let web3 = try await web3swift.Web3(provider: Web3HttpProvider(url: URL(string: endpoint)!, network: .Custom(networkID: 11155111)))
+//            let contract = web3.contract(Abi, at: contractAddress, abiVersion: 2)!
+//            print(contract.contract.allEvents)
+//            let tx = contract.createWriteOperation(contractMethod, parameters: parameters, extraData: extraData)!
+//            tx.transaction.from = walletAddress
+//            let call = try await tx.callContractMethod()
+//            balance = String(describing: call["0"]!)
+//            tableView.reloadData()
+//        }
     }
     
     // MARK: - Setup StatusBar.

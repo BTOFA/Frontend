@@ -106,6 +106,7 @@ extension ProfileViewController: UITableViewDelegate {
             if indexPath.row == 0 {
                 UserDefaults.standard.removeObject(forKey: "address")
                 UserDefaults.standard.removeObject(forKey: "expirationNotification")
+                UserDefaults.standard.removeObject(forKey: "reg")
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
                     UINavigationController(
                         rootViewController: WelcomeViewController()

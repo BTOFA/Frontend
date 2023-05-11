@@ -126,8 +126,4 @@ extension MyTokensViewController: UITableViewDataSource {
         cell.contentConfiguration = content
         return cell
     }
-    
-    private func customizeCell(cell: UITableViewCell, text: String, image: UIImage) {
-        
-    }
 }

@@ -170,14 +170,40 @@ class RegistrationViewController: UIViewController {
     
     @objc
     private func submitButtonPressed() {
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.isTranslucent = true
-        tabBarController.viewControllers = [
-            SceneDelegate.createHomeViewController(),
-            SceneDelegate.createOperationsViewController(),
-            SceneDelegate.createProfileViewController()
-        ]
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
-        UINavigationController(rootViewController: tabBarController))
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/register_user")!)
+        let params: [String: Any] = ["wallet": "0x49b0E787e04DF1Adf6c3468C1FA6EC1d0C1A2b63",
+                                    "password": firstTextField.text!]
+        let body = try? JSONSerialization.data(withJSONObject: params)
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        request.httpBody = body
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            print(String(decoding: data, as: UTF8.self))
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+            
+            DispatchQueue.main.async {
+                UserDefaults.standard.setValue(true, forKey: "reg")
+                UserDefaults.standard.setValue("0x49b0E787e04DF1Adf6c3468C1FA6EC1d0C1A2b63", forKey: "address")
+                let tabBarController = UITabBarController()
+                tabBarController.tabBar.isTranslucent = true
+                tabBarController.viewControllers = [
+                    SceneDelegate.createHomeViewController(),
+                    SceneDelegate.createOperationsViewController(),
+                    SceneDelegate.createProfileViewController()
+                ]
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
+                UINavigationController(rootViewController: tabBarController))
+            }
+        }
+        task.resume()
     }
 }

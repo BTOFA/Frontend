@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Glaip
 
 class WelcomeViewController: UIViewController {
     
@@ -14,11 +13,6 @@ class WelcomeViewController: UIViewController {
     
     private let signWithWalletButton = UIButton(type: .system)
     private let titleLabel = UILabel()
-    
-    private var glaip = Glaip(
-             title: "BToFA",
-             description: "Blockchain Tokenization of Financial Assets",
-             supportedWallets: [.MetaMask])
     
     // MARK: - viewDidLoad function.
     
@@ -82,7 +76,7 @@ class WelcomeViewController: UIViewController {
         signWithWalletButton.setHeight(to: 50)
         signWithWalletButton.configuration = .filled()
         signWithWalletButton.configuration?.cornerStyle = .capsule
-        signWithWalletButton.setTitle("Sign in with wallet", for: .normal)
+        signWithWalletButton.setTitle("Sign in", for: .normal)
         signWithWalletButton.addTarget(self, action: #selector(signWithWalletButtonPressed), for: .touchUpInside)
     }
     
@@ -90,22 +84,14 @@ class WelcomeViewController: UIViewController {
     
     @objc
     private func signWithWalletButtonPressed() {
-        glaip.loginUser(type: .MetaMask) { result in
-            switch result {
-            case .success(let user):
-                print(user.wallet.address)
-                UserDefaults.standard.set(user.wallet.address, forKey: "address")
-                UserDefaults.standard.set(1000, forKey: "account")
-                DispatchQueue.main.async {
-//                    let registerViewController = RegistrationViewController()
-//                    let vc = UINavigationController(rootViewController: registerViewController)
-                    let authorizationViewController = AuthorizationViewController()
-                    let vc = UINavigationController(rootViewController: authorizationViewController)
-                    self.navigationController?.present(vc, animated: true)
-                }
-            case .failure(let error):
-                print(error)
-          }
+        if UserDefaults.standard.bool(forKey: "reg") {
+            let vc = AuthorizationViewController()
+            let nc = UINavigationController(rootViewController: vc)
+            self.navigationController?.present(nc, animated: true)
+        } else {
+            let vc = RegistrationViewController()
+            let nc = UINavigationController(rootViewController: vc)
+            self.navigationController?.present(nc, animated: true)
         }
     }
 }
