@@ -106,7 +106,6 @@ extension ProfileViewController: UITableViewDelegate {
             if indexPath.row == 0 {
                 UserDefaults.standard.removeObject(forKey: "address")
                 UserDefaults.standard.removeObject(forKey: "expirationNotification")
-                UserDefaults.standard.removeObject(forKey: "reg")
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
                     UINavigationController(
                         rootViewController: WelcomeViewController()
@@ -159,7 +158,7 @@ extension ProfileViewController : UITableViewDataSource {
                 var content = cell.defaultContentConfiguration()
                 content.image = UIImage(systemName: "rectangle.on.rectangle.circle.fill")
                 content.text = "Public address"
-                let str = UserDefaults.standard.string(forKey: "address") ?? ""
+                let str = UserDefaults.standard.string(forKey: "wallet") ?? ""
                 let start = str.index(str.startIndex, offsetBy: 12)
                 let end = str.index(str.endIndex, offsetBy: -12)
                 let result = str[...start] + " ... " + str[end...]

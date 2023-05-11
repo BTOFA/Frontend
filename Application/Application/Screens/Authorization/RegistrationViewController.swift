@@ -184,15 +184,15 @@ class RegistrationViewController: UIViewController {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            print(String(decoding: data, as: UTF8.self))
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
+                print("===== api/register_user response =====")
                 print(responseJSON)
+                UserDefaults.standard.setValue(String(describing: responseJSON["auth_token"]!), forKey: "address")
+                UserDefaults.standard.setValue(true, forKey: "reg")
             }
             
             DispatchQueue.main.async {
-                UserDefaults.standard.setValue(true, forKey: "reg")
-                UserDefaults.standard.setValue("0x49b0E787e04DF1Adf6c3468C1FA6EC1d0C1A2b63", forKey: "address")
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.isTranslucent = true
                 tabBarController.viewControllers = [

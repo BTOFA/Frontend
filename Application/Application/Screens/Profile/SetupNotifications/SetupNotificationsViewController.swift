@@ -139,7 +139,7 @@ extension SetupNotificationsViewController : UITableViewDataSource {
     // MARK: - switchValueChanged function.
     
     @objc
-    func switchValueChanged(switchView: UISwitch) {
+    private func switchValueChanged(switchView: UISwitch) {
         UserDefaults.standard.set(switchView.isOn, forKey: "expirationNotification")
     }
 }
