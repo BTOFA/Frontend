@@ -149,13 +149,25 @@ class AuthorizationViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/auth_by_pass response =====")
                 print(responseJSON)
-                UserDefaults.standard.setValue(responseJSON["auth_token"]!, forKey: "address")
-                UserDefaults.standard.setValue(true, forKey: "reg")
+                if responseJSON["status"] as! String == "ok" {
+                    UserDefaults.standard.setValue(responseJSON["auth_token"]!, forKey: "address")
+                    UserDefaults.standard.setValue(true, forKey: "reg")
+                }
                 DispatchQueue.main.async {
                     if responseJSON["status"] as! String != "ok" {
                         let alert = UIAlertController(title: "Error", message: "Authorization failed", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
+                    } else {
+                        let tabBarController = UITabBarController()
+                        tabBarController.tabBar.isTranslucent = true
+                        tabBarController.viewControllers = [
+                            SceneDelegate.createHomeViewController(),
+                            SceneDelegate.createOperationsViewController(),
+                            SceneDelegate.createProfileViewController()
+                        ]
+                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
+                        UINavigationController(rootViewController: tabBarController))
                     }
                 }
             } else {
@@ -164,18 +176,6 @@ class AuthorizationViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
-            }
-            
-            DispatchQueue.main.async {
-                let tabBarController = UITabBarController()
-                tabBarController.tabBar.isTranslucent = true
-                tabBarController.viewControllers = [
-                    SceneDelegate.createHomeViewController(),
-                    SceneDelegate.createOperationsViewController(),
-                    SceneDelegate.createProfileViewController()
-                ]
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
-                UINavigationController(rootViewController: tabBarController))
             }
         }
         task.resume()
