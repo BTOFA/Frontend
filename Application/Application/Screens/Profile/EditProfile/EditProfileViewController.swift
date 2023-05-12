@@ -2,8 +2,6 @@
 //  EditProfileViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 07.04.2023.
-//
 
 import UIKit
 

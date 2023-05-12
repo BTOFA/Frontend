@@ -2,170 +2,17 @@
 //  BuyTokenViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 12.04.2023.
-//
 
 import UIKit
-import web3swift
-import Web3Core
-import Combine
-import metamask_ios_sdk
 
 class BuyTokenViewController: UIViewController {
     
     // MARK: - Properties.
     
-    var ethereum: Ethereum = MetaMaskSDK.shared.ethereum
-    private var cancellables: Set<AnyCancellable> = []
-    private let dapp = Dapp(name: "Abc", url: "abc.abc")
-    
     private let infoLabel = UILabel()
     private let textField = UITextField()
     private let buyButton = UIButton(type: .system)
-    let Abi = """
-    [
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "startId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "endId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyToken",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "startId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "endId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "expireToken",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "currency",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "token",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "previousOwner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "transferOwnership",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "",
-                    "type": "bytes"
-                }
-            ],
-            "name": "onERC721Received",
-            "outputs": [
-                {
-                    "internalType": "bytes4",
-                    "name": "",
-                    "type": "bytes4"
-                }
-            ],
-            "stateMutability": "pure",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "owner",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
-
-
-    """
+    private var tokenModel: TokenSeries?
     
     // MARK: - viewDidLoad function.
     
@@ -250,6 +97,7 @@ class BuyTokenViewController: UIViewController {
         textField.keyboardType = .asciiCapableNumberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.isUserInteractionEnabled = true
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     
@@ -261,58 +109,49 @@ class BuyTokenViewController: UIViewController {
         buyButton.pinLeft(to: view.safeAreaLayoutGuide.leadingAnchor, 16)
         buyButton.pinRight(to: view.safeAreaLayoutGuide.trailingAnchor, 16)
         buyButton.setHeight(to: 50)
-        buyButton.setTitle("Buy", for: .normal)
+        buyButton.setTitle("Submit", for: .normal)
         buyButton.configuration = .filled()
         buyButton.configuration?.cornerStyle = .medium
         buyButton.addTarget(self, action: #selector(buyButtonPressed), for: .touchUpInside)
         buyButton.isEnabled = false
+        buyButton.isUserInteractionEnabled = true
     }
     
     // MARK: - buyButtonPressed function.
     
     @objc
     private func buyButtonPressed() {
-        let walletAddress = EthereumAddress(UserDefaults.standard.string(forKey: "address")!)
-        let contractAddress = EthereumAddress("0xA6FB215880433199E21363f1d6022A0d2b7e125b")
-        let endpoint = "https://sepolia.infura.io/v3/00c0dc2e240c40c392f4c2522526babd"
-        let contractMethod = "buyToken"
-        ethereum.connect(dapp)?.sink(receiveCompletion: { completion in
-            switch completion {
-            case let .failure(error):
-                print("Connection error: \(error.localizedDescription)")
-            default: break
+        textField.isUserInteractionEnabled = false
+        buyButton.isUserInteractionEnabled = false
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/buy_token")!)
+        print(Int(textField.text!)!)
+        print(Int(exactly: tokenModel!.id)!)
+        let params: [String: Any] = ["id": Int(exactly: tokenModel!.id)!,
+                                     "number_of_tokens": Int(textField.text!)!]
+        let body = try? JSONSerialization.data(withJSONObject: params)
+        
+        print(params)
+        request.addValue("Token \(String(describing: UserDefaults.standard.string(forKey: "address")!))", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        request.httpBody = body
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
             }
-        }, receiveValue: { [self] result in
-            print("Connection result: \(result)")
-            Task {
-                let web3 = try await web3swift.Web3(provider: Web3HttpProvider(url: URL(string: endpoint)!, network: .Custom(networkID: 11155111)))
-                let contract = web3.contract(self.Abi, at: contractAddress, abiVersion: 2)!
-                let parameters: [String: String] = [
-                    "value": "0",
-                    "gas": "47288",
-                    "maxFeePerGas": "1000000007",
-                    "maxPriorityFeePerGas": "999999993",
-                    "chainId": "11155111",
-                    "from": "0xE6C9789Be58FC30C5650c6c7Cf1c2aFFA480b856",
-                    "nonce": "0",
-                    "to": "0xF6449353Db59383a5eC4C7A752E7Dcf237692422",
-                    "data": "0x39509351000000000000000000000000a6fb215880433199e21363f1d6022a0d2b7e125b0000000000000000000000000000000000000000000000000000000000000064"
-                ]
-                let transactionRequest = EthereumRequest(
-                    method: .ethSendTransaction,
-                    params: parameters
-                )
-                self.ethereum.request(transactionRequest)?.sink(receiveCompletion: { completion in
-                    switch completion {
-                    case let .failure(error):
-                        print("Transaction error: \(error.localizedDescription)")
-                    default: break
-                    }
-                }, receiveValue: { value in
-                    print("Transaction result: \(value)")
-                })
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("===== api/buy_token response =====")
+                print(responseJSON)
             }
-        }).store(in: &cancellables)
+            
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        task.resume()
     }
     
     // MARK: - textFieldDidChange function.
@@ -328,15 +167,16 @@ class BuyTokenViewController: UIViewController {
     
     // MARK: - configure function.
     
-    public func configure(model: TokenModel?) {
+    public func configure(model: TokenSeries?) {
+        tokenModel = model
         title = model?.name
         infoLabel.text = """
-                        Amount: \(model?.amount ?? 0)
-                        Price: \(model?.price ?? 0)
-                        Emission date: \(model?.emissionDate ?? "-")
-                        Expiration date: \(model?.burnDate ?? "-")
-                        Income: \(model?.profit ?? 0)
-                        Other information: \(model?.metadata ?? "-")
+                        Amount: \(model?.numberOfTokens ?? 0)
+                        Price: \(model?.cost ?? 0)
+                        Emission date: \(DateManager.getStringDate(string: model?.created ?? "2023-05-12T11:01:00.854710Z"))
+                        Expiration date: \(DateManager.getStringDate(string: model?.expirationDatetime ?? "2023-05-12T11:01:00.854710Z"))
+                        Income: \(model?.dividends ?? 0)
+                        Other information: \(model?.metainfo ?? "-")
                         """
     }
 }

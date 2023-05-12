@@ -2,8 +2,6 @@
 //  SceneDelegate.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 28.02.2023.
-//
 
 import UIKit
 
@@ -108,4 +106,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 }
-

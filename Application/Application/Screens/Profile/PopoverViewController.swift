@@ -2,8 +2,6 @@
 //  PopoverViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 28.04.2023.
-//
 
 import UIKit
 

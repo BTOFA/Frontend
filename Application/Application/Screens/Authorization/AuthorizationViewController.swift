@@ -2,8 +2,6 @@
 //  AuthorizationViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 06.05.2023.
-//
 
 import UIKit
 
@@ -148,7 +146,7 @@ class AuthorizationViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/auth_by_pass response =====")
                 print(responseJSON)
-                UserDefaults.standard.setValue(String(describing: responseJSON["auth_token"]!), forKey: "address")
+                UserDefaults.standard.setValue(responseJSON["auth_token"]!, forKey: "address")
                 UserDefaults.standard.setValue(true, forKey: "reg")
             }
             

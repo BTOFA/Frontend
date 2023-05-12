@@ -2,8 +2,6 @@
 //  ViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 28.02.2023.
-//
 
 import UIKit
 
@@ -34,7 +32,11 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
         
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/user_info")!)
-        request.addValue("Token \(String(describing: UserDefaults.standard.string(forKey: "address")!))", forHTTPHeaderField: "Authorization")
+        if let str = UserDefaults.standard.string(forKey: "address") {
+            request.addValue("Token \(String(describing: str))", forHTTPHeaderField: "Authorization")
+        }
+        print("===== UserDefaults token =====")
+        print(String(describing: UserDefaults.standard.string(forKey: "address") ?? "no info"))
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
@@ -45,8 +47,16 @@ class HomeViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/user_info response =====")
                 print(responseJSON)
-                self.balance = String(describing: responseJSON["balance"]!)
-                UserDefaults.standard.setValue(String(describing: responseJSON["wallet"]!), forKey: "wallet")
+                if let balanceData = responseJSON["balance"] {
+                    self.balance = String(describing: balanceData)
+                } else {
+                    print(">>>>> api/user_info error while getting balance")
+                }
+                if let walletData = responseJSON["wallet"] {
+                    UserDefaults.standard.setValue(String(describing: walletData), forKey: "wallet")
+                } else {
+                    print(">>>>> api/user_info error while getting wallet address")
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

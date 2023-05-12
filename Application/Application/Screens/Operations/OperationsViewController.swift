@@ -2,8 +2,6 @@
 //  OperationsViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 01.03.2023.
-//
 
 import UIKit
 
@@ -12,7 +10,7 @@ class OperationsViewController: UIViewController {
     // MARK: - Properties.
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var presentedTokens: [TokenModel]?
+    private var presentedTokens: [TokenSeries]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +26,6 @@ class OperationsViewController: UIViewController {
         }
         setupNavBar()
         fetchPresentedTokens()
-        tableView.reloadData()
     }
     
     private func setupNavBar() {
@@ -89,10 +86,33 @@ class OperationsViewController: UIViewController {
     // MARK: - fetchPresentedTokens function.
     
     private func fetchPresentedTokens() {
-        presentedTokens = [
-            TokenModel(id: 1, name: "BTOT", amount: 500, price: 20, emissionDate: "01.05.2023", burnDate: "11.05.2023", profit: 22, metadata: "-"),
-            TokenModel(id: 1, name: "BTOT", amount: 100, price: 50, emissionDate: "02.05.2023", burnDate: "11.05.2023", profit: 25, metadata: "-"),
-            TokenModel(id: 1, name: "BTOT", amount: 700, price: 17, emissionDate: "03.05.2023", burnDate: "11.05.2023", profit: 18, metadata: "-")]
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/list_tokens_series")!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(">>>>> api/list_tokens_series: get data error")
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+
+            do {
+                let response = try decoder.decode(TokenSeriesResponse.self, from: data)
+                print("===== api/list_tokens_series: tokenSeries =====")
+                print(response.tokenSeries)
+                
+                self.presentedTokens = response.tokenSeries
+            } catch {
+                print(">>>>> api/list_tokens_series: decoding error")
+            }
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        task.resume()
     }
 }
 
@@ -129,7 +149,7 @@ extension OperationsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tokenCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text = presentedTokens?[indexPath.row].name
-        content.secondaryText = presentedTokens?[indexPath.row].emissionDate
+        content.secondaryText = DateManager.getStringDate(string: presentedTokens?[indexPath.row].created)
         content.image = UIImage(named: "icon_small.svg")
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator

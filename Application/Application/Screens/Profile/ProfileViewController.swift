@@ -2,8 +2,6 @@
 //  ProfileViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 01.03.2023.
-//
 
 import UIKit
 
@@ -158,7 +156,7 @@ extension ProfileViewController : UITableViewDataSource {
                 var content = cell.defaultContentConfiguration()
                 content.image = UIImage(systemName: "rectangle.on.rectangle.circle.fill")
                 content.text = "Public address"
-                let str = UserDefaults.standard.string(forKey: "wallet") ?? ""
+                let str = UserDefaults.standard.string(forKey: "wallet") ?? "there is no wallet"
                 let start = str.index(str.startIndex, offsetBy: 12)
                 let end = str.index(str.endIndex, offsetBy: -12)
                 let result = str[...start] + " ... " + str[end...]
@@ -200,4 +198,3 @@ extension ProfileViewController : UITableViewDataSource {
         cell.contentView.tintColor = .tintColor
     }
 }
-

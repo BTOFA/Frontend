@@ -2,8 +2,6 @@
 //  TransactionLogViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 03.03.2023.
-//
 
 import UIKit
 
@@ -12,7 +10,7 @@ class TransactionLogViewController: UIViewController {
     // MARK: - Properties.
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    private var operations: [OperationModel]?
+    private var operations: [History]?
     
     // MARK: - viewDidLoad function.
     
@@ -82,10 +80,34 @@ class TransactionLogViewController: UIViewController {
     // MARK: - fetchOperations function.
     
     private func fetchOperations() {
-        operations = [
-            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+100 ₽", date: "01.05.2023"),
-            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+30 BTOT", date: "03.05.2023"),
-            OperationModel(id: 1, user: UserModel(id: 1, role: "common", address: "-", balance: 0), type: "transaction", description: "+12 BTOT", date: "07.05.2023"),]
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/user_history")!)
+        request.addValue("Token \(String(describing: UserDefaults.standard.string(forKey: "address")!))", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(">>>>> api/user_history: get data error")
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+
+            do {
+                let response = try decoder.decode(UserHistoryResponse.self, from: data)
+                print("===== api/user_history: history =====")
+                print(response.history)
+                
+                self.operations = response.history
+            } catch {
+                print(">>>>> api/user_history: decoding error")
+            }
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        task.resume()
     }
 }
 
@@ -118,10 +140,15 @@ extension TransactionLogViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = operations?[indexPath.row].description
-        content.secondaryText = operations?[indexPath.row].date
+        if operations?[indexPath.row].opType == "RE" {
+            content.text = "+\(String(describing: operations![indexPath.row].desc)) BTOC"
+        } else if operations?[indexPath.row].opType == "PU" {
+            content.text = "+\(String(describing: operations![indexPath.row].desc)) BTOT"
+        } else {
+            content.text = operations?[indexPath.row].desc
+        }
+        content.secondaryText = DateManager.getStringDate(string: operations?[indexPath.row].performed)
         cell.contentConfiguration = content
         return cell
     }
 }
-

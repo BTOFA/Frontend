@@ -2,8 +2,6 @@
 //  RegistrationViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 06.05.2023.
-//
 
 import UIKit
 

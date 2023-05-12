@@ -2,8 +2,6 @@
 //  PutMoneyViewController.swift
 //  Application
 //
-//  Created by Максим Кузнецов on 03.03.2023.
-//
 
 import UIKit
 
@@ -83,6 +81,7 @@ class PutMoneyViewController: UIViewController {
         textField.keyboardType = .asciiCapableNumberPad
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.isUserInteractionEnabled = true
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     
@@ -99,15 +98,40 @@ class PutMoneyViewController: UIViewController {
         submitButton.pinRight(to: view.safeAreaLayoutGuide.trailingAnchor, 16)
         submitButton.addTarget(self, action: #selector(submitButtonPressed), for: .touchUpInside)
         submitButton.isEnabled = false
+        submitButton.isUserInteractionEnabled = true
     }
     
     // MARK: - submitButtonPressed function.
     
     @objc
     private func submitButtonPressed() {
-        let money = UserDefaults.standard.integer(forKey: "account")
-        UserDefaults.standard.set(money + ((textField.text as? NSString)?.integerValue ?? 0), forKey: "account")
-        navigationController?.popViewController(animated: true)
+        submitButton.isUserInteractionEnabled = false
+        textField.isUserInteractionEnabled = false
+        var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/add_balance")!)
+        let params: [String: Any] = ["wallet": "0x49b0E787e04DF1Adf6c3468C1FA6EC1d0C1A2b63",
+                                     "plus": Int(textField.text!) ?? 0]
+        let body = try? JSONSerialization.data(withJSONObject: params)
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        request.httpBody = body
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("===== api/add_balance response =====")
+                print(responseJSON)
+            }
+            
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        task.resume()
     }
     
     // MARK: - textFieldDidChange function.
