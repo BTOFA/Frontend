@@ -72,7 +72,7 @@ class TransactionLogViewController: UIViewController {
     private func setupTableViewPosition() {
         view.addSubview(tableView)
         tableView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
-        tableView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
+        tableView.pinBottom(to: view.bottomAnchor)
         tableView.pinLeft(to: view)
         tableView.pinRight(to: view)
     }
@@ -143,7 +143,11 @@ extension TransactionLogViewController : UITableViewDataSource {
         if operations?[indexPath.row].opType == "RE" {
             content.text = "+\(String(describing: operations![indexPath.row].desc)) BTOC"
         } else if operations?[indexPath.row].opType == "PU" {
-            content.text = "+\(String(describing: operations![indexPath.row].desc)) new tokens"
+            content.text = "+\(String(describing: operations![indexPath.row].desc)) tokens"
+        } else if operations?[indexPath.row].opType == "DE" {
+            content.text = "-\(String(describing: operations![indexPath.row].desc)) BTOC"
+        } else if operations?[indexPath.row].opType == "EX" {
+            content.text = "-\(String(describing: operations![indexPath.row].desc)) tokens"
         } else {
             content.text = operations?[indexPath.row].desc
         }

@@ -57,6 +57,11 @@ class HomeViewController: UIViewController {
                 } else {
                     print(">>>>> api/user_info error while getting wallet address")
                 }
+                if let trueWalletData = responseJSON["true_wallet"] {
+                    UserDefaults.standard.setValue(String(describing: trueWalletData), forKey: "true_wallet")
+                } else {
+                    print(">>>>> api/user_info error while getting true_wallet")
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

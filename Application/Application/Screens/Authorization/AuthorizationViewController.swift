@@ -155,7 +155,7 @@ class AuthorizationViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     if responseJSON["status"] as! String != "ok" {
-                        let alert = UIAlertController(title: "Error", message: "Authorization failed", preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Error", message: "Authorization failed: \(responseJSON["reason"] ?? "no info provided")", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     } else {
@@ -176,6 +176,10 @@ class AuthorizationViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
+            }
+            DispatchQueue.main.async {
+                self.submitButton.isUserInteractionEnabled = true
+                self.submitButton.configuration?.showsActivityIndicator = false
             }
         }
         task.resume()

@@ -125,13 +125,10 @@ class BuyTokenViewController: UIViewController {
         buyButton.isUserInteractionEnabled = false
         buyButton.configuration?.showsActivityIndicator = true
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/buy_token")!)
-        print(Int(textField.text!)!)
-        print(Int(exactly: tokenModel!.id)!)
         let params: [String: Any] = ["id": Int(exactly: tokenModel!.id)!,
                                      "number_of_tokens": Int(textField.text!)!]
         let body = try? JSONSerialization.data(withJSONObject: params)
         
-        print(params)
         request.addValue("Token \(String(describing: UserDefaults.standard.string(forKey: "address")!))", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -148,9 +145,11 @@ class BuyTokenViewController: UIViewController {
                 print(responseJSON)
                 DispatchQueue.main.async {
                     if responseJSON["status"] as! String != "ok" {
-                        let alert = UIAlertController(title: "Error", message: "Failed to buy a token", preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Error", message: "Failed to buy a token: \(responseJSON["reason"] ?? "no info provided")", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
@@ -160,9 +159,9 @@ class BuyTokenViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-            
             DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+                self.buyButton.isUserInteractionEnabled = true
+                self.buyButton.configuration?.showsActivityIndicator = false
             }
         }
         task.resume()

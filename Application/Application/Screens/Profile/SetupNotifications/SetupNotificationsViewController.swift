@@ -107,6 +107,7 @@ class SetupNotificationsViewController: UIViewController {
                             let calendar = Calendar.current
                             let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
                             self.dispatchNotification(date: newDate, tokenName: tok.name)
+                            self.dispatchNotification(date: date, tokenName: tok.name)
                         } else {
                             self.dispatchNotification(date: date, tokenName: tok.name)
                         }
@@ -120,6 +121,7 @@ class SetupNotificationsViewController: UIViewController {
                         if self.switchView.isOn {
                             for tok in self.tokens {
                                 let date = DateManager.getDateFromString(string: tok.expirationDatetime)
+                                print(date)
                                 let components = date.get(.year, .month, .day)
                                 let currentDate = Date()
                                 let currentComponents = currentDate.get(.year, .month, .day)
@@ -129,6 +131,7 @@ class SetupNotificationsViewController: UIViewController {
                                     let calendar = Calendar.current
                                     let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
                                     self.dispatchNotification(date: newDate, tokenName: tok.name)
+                                    self.dispatchNotification(date: date, tokenName: tok.name)
                                 } else {
                                     self.dispatchNotification(date: date, tokenName: tok.name)
                                 }
@@ -291,8 +294,10 @@ extension SetupNotificationsViewController : UITableViewDataSource {
     private func switchValueChanged(switchView: UISwitch) {
         UserDefaults.standard.set(switchView.isOn, forKey: "expirationNotification")
         if switchView.isOn {
-            for tok in tokens {
+            for tok in self.tokens {
                 let date = DateManager.getDateFromString(string: tok.expirationDatetime)
+                print("===== Expiration date =====")
+                print(date)
                 let components = date.get(.year, .month, .day)
                 let currentDate = Date()
                 let currentComponents = currentDate.get(.year, .month, .day)
@@ -301,9 +306,10 @@ extension SetupNotificationsViewController : UITableViewDataSource {
                     components.day == currentComponents.day {
                     let calendar = Calendar.current
                     let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
-                    dispatchNotification(date: newDate, tokenName: tok.name)
+                    self.dispatchNotification(date: newDate, tokenName: tok.name)
+                    self.dispatchNotification(date: date, tokenName: tok.name)
                 } else {
-                    dispatchNotification(date: date, tokenName: tok.name)
+                    self.dispatchNotification(date: date, tokenName: tok.name)
                 }
             }
         } else {

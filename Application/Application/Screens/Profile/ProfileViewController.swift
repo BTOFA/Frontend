@@ -89,7 +89,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                UIPasteboard.general.string = UserDefaults.standard.string(forKey: "address")
+                UIPasteboard.general.string = UserDefaults.standard.string(forKey: "true_wallet")
                 let popoverContent = PopoverViewController()
                 popoverContent.setText(text: "Public address copied")
                 presentPopover(self, popoverContent, sender: tableView.cellForRow(at: .init(row: 0, section: 0)) ?? tableView, size: CGSize(width: 200, height: 40), arrowDirection: .up)
@@ -102,7 +102,8 @@ extension ProfileViewController: UITableViewDelegate {
             }
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
-                UserDefaults.standard.removeObject(forKey: "address")
+                UserDefaults.standard.removeObject(forKey: "true_wallet")
+                UserDefaults.standard.removeObject(forKey: "wallet")
                 UserDefaults.standard.removeObject(forKey: "expirationNotification")
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(
                     UINavigationController(
@@ -156,7 +157,7 @@ extension ProfileViewController : UITableViewDataSource {
                 var content = cell.defaultContentConfiguration()
                 content.image = UIImage(systemName: "rectangle.on.rectangle.circle.fill")
                 content.text = "Public address"
-                let str = UserDefaults.standard.string(forKey: "wallet") ?? "there is no wallet"
+                let str = UserDefaults.standard.string(forKey: "true_wallet") ?? "there is no wallet"
                 let start = str.index(str.startIndex, offsetBy: 12)
                 let end = str.index(str.endIndex, offsetBy: -12)
                 let result = str[...start] + " ... " + str[end...]

@@ -181,7 +181,7 @@ extension CalendarViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text = DateManager.getStringDate(string: tokens[indexPath.row].expirationDatetime)
-        content.secondaryText = "\(tokens[indexPath.row].name) \(tokens[indexPath.row].id)"
+        content.secondaryText = "\(tokens[indexPath.row].name)"
         cell.contentConfiguration = content
         return cell
     }

@@ -126,17 +126,25 @@ class PutMoneyViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/add_balance response =====")
                 print(responseJSON)
-                if responseJSON["status"] as! String != "ok" {
-                    let alert = UIAlertController(title: "Error", message: "Failed to put money", preferredStyle: UIAlertController.Style.alert)
-                    self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    if responseJSON["status"] as! String != "ok" {
+                        let alert = UIAlertController(title: "Error", message: "Failed to put money: \(responseJSON["reason"] ?? "no info provided")", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             } else {
-                let alert = UIAlertController(title: "Error", message: "Failed to put money", preferredStyle: UIAlertController.Style.alert)
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: "Failed to put money", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
-            
             DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+                self.submitButton.isUserInteractionEnabled = true
+                self.submitButton.configuration?.showsActivityIndicator = false
             }
         }
         task.resume()

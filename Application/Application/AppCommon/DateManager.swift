@@ -22,8 +22,9 @@ final class DateManager {
             let str = string![string!.startIndex..<string!.index(string!.startIndex, offsetBy: 19)]
             let date = dateFormatter.date(from: String(str))!
             let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-            let finalDate = calendar.date(from:components)
+            let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            var finalDate = calendar.date(from:components)
+            finalDate = calendar.date(byAdding: .hour, value: 6, to: finalDate!)!
             return finalDate!
         }
         return Date()
