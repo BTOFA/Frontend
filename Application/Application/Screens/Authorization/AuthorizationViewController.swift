@@ -110,6 +110,7 @@ class AuthorizationViewController: UIViewController {
         submitButton.pinRight(to: view.safeAreaLayoutGuide.trailingAnchor, 16)
         submitButton.addTarget(self, action: #selector(submitButtonPressed), for: .touchUpInside)
         submitButton.isEnabled = false
+        submitButton.isUserInteractionEnabled = true
     }
     
     // MARK: - textFieldDidChange function.
@@ -128,6 +129,8 @@ class AuthorizationViewController: UIViewController {
     
     @objc
     private func submitButtonPressed() {
+        submitButton.isUserInteractionEnabled = false
+        submitButton.configuration?.showsActivityIndicator = true
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/auth_by_pass")!)
         let params: [String: Any] = ["wallet": "0x49b0E787e04DF1Adf6c3468C1FA6EC1d0C1A2b63",
                                     "password": textField.text!]
@@ -148,6 +151,19 @@ class AuthorizationViewController: UIViewController {
                 print(responseJSON)
                 UserDefaults.standard.setValue(responseJSON["auth_token"]!, forKey: "address")
                 UserDefaults.standard.setValue(true, forKey: "reg")
+                DispatchQueue.main.async {
+                    if responseJSON["status"] as! String != "ok" {
+                        let alert = UIAlertController(title: "Error", message: "Authorization failed", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: "Authorization failed", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
             
             DispatchQueue.main.async {

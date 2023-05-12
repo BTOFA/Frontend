@@ -143,7 +143,7 @@ extension TransactionLogViewController : UITableViewDataSource {
         if operations?[indexPath.row].opType == "RE" {
             content.text = "+\(String(describing: operations![indexPath.row].desc)) BTOC"
         } else if operations?[indexPath.row].opType == "PU" {
-            content.text = "+\(String(describing: operations![indexPath.row].desc)) BTOT"
+            content.text = "+\(String(describing: operations![indexPath.row].desc)) new tokens"
         } else {
             content.text = operations?[indexPath.row].desc
         }

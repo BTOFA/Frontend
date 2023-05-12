@@ -105,6 +105,7 @@ class PutMoneyViewController: UIViewController {
     
     @objc
     private func submitButtonPressed() {
+        submitButton.configuration?.showsActivityIndicator = true
         submitButton.isUserInteractionEnabled = false
         textField.isUserInteractionEnabled = false
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/add_balance")!)
@@ -125,6 +126,13 @@ class PutMoneyViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/add_balance response =====")
                 print(responseJSON)
+                if responseJSON["status"] as! String != "ok" {
+                    let alert = UIAlertController(title: "Error", message: "Failed to put money", preferredStyle: UIAlertController.Style.alert)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Failed to put money", preferredStyle: UIAlertController.Style.alert)
+                self.present(alert, animated: true, completion: nil)
             }
             
             DispatchQueue.main.async {

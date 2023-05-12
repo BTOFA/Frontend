@@ -123,6 +123,7 @@ class BuyTokenViewController: UIViewController {
     private func buyButtonPressed() {
         textField.isUserInteractionEnabled = false
         buyButton.isUserInteractionEnabled = false
+        buyButton.configuration?.showsActivityIndicator = true
         var request = URLRequest(url: URL(string: "http://127.0.0.1:8000/api/buy_token")!)
         print(Int(textField.text!)!)
         print(Int(exactly: tokenModel!.id)!)
@@ -145,6 +146,19 @@ class BuyTokenViewController: UIViewController {
             if let responseJSON = responseJSON as? [String: Any] {
                 print("===== api/buy_token response =====")
                 print(responseJSON)
+                DispatchQueue.main.async {
+                    if responseJSON["status"] as! String != "ok" {
+                        let alert = UIAlertController(title: "Error", message: "Failed to buy a token", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: "Failed to buy a token", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
             
             DispatchQueue.main.async {
