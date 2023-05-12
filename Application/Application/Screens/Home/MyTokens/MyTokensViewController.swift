@@ -183,10 +183,12 @@ extension MyTokensViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tokenCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = "\(tokens[indexPath.row].name)"
-        content.secondaryText = "Amount: \(tokens[indexPath.row].amount)"
-        content.image = UIImage(named: "icon_small.svg")
-        cell.contentConfiguration = content
+        if !tokens.isEmpty {
+            content.text = "\(tokens[indexPath.row].name)"
+            content.secondaryText = "Amount: \(tokens[indexPath.row].amount)"
+            content.image = UIImage(named: "icon_small.svg")
+            cell.contentConfiguration = content
+        }
         return cell
     }
 }

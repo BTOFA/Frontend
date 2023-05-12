@@ -24,7 +24,7 @@ final class DateManager {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
             var finalDate = calendar.date(from:components)
-            finalDate = calendar.date(byAdding: .hour, value: 6, to: finalDate!)!
+            finalDate = calendar.date(byAdding: .hour, value: 3, to: finalDate!)!
             return finalDate!
         }
         return Date()
@@ -38,7 +38,7 @@ final class DateManager {
         let finalDate = getDateFromString(string: string)
         switch type {
         case DateManager.spaceFormat:
-            dateFormatter.dateFormat = "dd MMMM yyyy"
+            dateFormatter.dateFormat = "dd MMMM yyyy 'at' HH:mm:ss"
         default:
             dateFormatter.dateFormat = "dd.MM.yyyy"
         }

@@ -63,14 +63,14 @@ class PutMoneyViewController: UIViewController {
         textField.setHeight(to: 50)
         let paddingView = UIView()
         let textLabel = UILabel()
-        textLabel.setWidth(to: 90)
+        textLabel.setWidth(to: 130)
         textLabel.setHeight(to: 40)
         paddingView.addSubview(textLabel)
         textLabel.pinTop(to: paddingView, 5)
         textLabel.pinBottom(to: paddingView, 5)
         textLabel.pinLeft(to: paddingView, 10)
         textLabel.pinRight(to: paddingView, 5)
-        textLabel.text = "Amount ₽:"
+        textLabel.text = "Amount BTOC:"
         textLabel.textAlignment = .left
         textLabel.textColor = .label
         textLabel.font = .systemFont(ofSize: 18, weight: .medium)

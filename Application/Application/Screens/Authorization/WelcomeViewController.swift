@@ -111,7 +111,8 @@ class WelcomeViewController: UIViewController {
                 let nc = UINavigationController(rootViewController: vc)
                 self.navigationController?.present(nc, animated: true)
             } else {
-                let vc = RegistrationViewController()
+//                let vc = RegistrationViewController()
+                let vc = AuthorizationViewController()
                 let nc = UINavigationController(rootViewController: vc)
                 self.navigationController?.present(nc, animated: true)
             }

@@ -161,6 +161,7 @@ class BuyTokenViewController: UIViewController {
             }
             DispatchQueue.main.async {
                 self.buyButton.isUserInteractionEnabled = true
+                self.textField.isUserInteractionEnabled = true
                 self.buyButton.configuration?.showsActivityIndicator = false
             }
         }

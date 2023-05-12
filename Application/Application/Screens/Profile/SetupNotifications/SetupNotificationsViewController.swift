@@ -96,48 +96,15 @@ class SetupNotificationsViewController: UIViewController {
             switch settings.authorizationStatus {
             case .authorized:
                 if UserDefaults.standard.bool(forKey: "expirationNotification") {
-                    for tok in self.tokens {
-                        let date = DateManager.getDateFromString(string: tok.expirationDatetime)
-                        let components = date.get(.year, .month, .day)
-                        let currentDate = Date()
-                        let currentComponents = currentDate.get(.year, .month, .day)
-                        if components.year == currentComponents.year &&
-                            components.month == currentComponents.month &&
-                            components.day == currentComponents.day {
-                            let calendar = Calendar.current
-                            let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
-                            self.dispatchNotification(date: newDate, tokenName: tok.name)
-                            self.dispatchNotification(date: date, tokenName: tok.name)
-                        } else {
-                            self.dispatchNotification(date: date, tokenName: tok.name)
-                        }
-                    }
+                    self.setupNotifications()
                 }
             case .denied:
-                return
+                notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { didAllow, error in
+                    self.setupNotifications()
+                }
             case .notDetermined:
                 notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { didAllow, error in
-                    if UserDefaults.standard.bool(forKey: "expirationNotification") {
-                        if self.switchView.isOn {
-                            for tok in self.tokens {
-                                let date = DateManager.getDateFromString(string: tok.expirationDatetime)
-                                print(date)
-                                let components = date.get(.year, .month, .day)
-                                let currentDate = Date()
-                                let currentComponents = currentDate.get(.year, .month, .day)
-                                if components.year == currentComponents.year &&
-                                    components.month == currentComponents.month &&
-                                    components.day == currentComponents.day {
-                                    let calendar = Calendar.current
-                                    let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
-                                    self.dispatchNotification(date: newDate, tokenName: tok.name)
-                                    self.dispatchNotification(date: date, tokenName: tok.name)
-                                } else {
-                                    self.dispatchNotification(date: date, tokenName: tok.name)
-                                }
-                            }
-                        }
-                    }
+                    self.setupNotifications()
                 }
             default:
                 return
@@ -145,11 +112,11 @@ class SetupNotificationsViewController: UIViewController {
         }
     }
     
-    private func dispatchNotification(date: Date, tokenName: String) {
-        let identifier = "income-notification"
+    private func dispatchNotification(date: Date, tokenName: String, id: String) {
+        let identifier = id
         let title = "Profit!"
         let body = "The token \(tokenName) burned down and you made a profit"
-        let components = date.get(.year, .month, .day, .hour, .minute)
+        let components = date.get(.year, .month, .day, .hour, .minute, .second)
         let isDaily = false
         
         let notificationCenter = UNUserNotificationCenter.current()
@@ -294,27 +261,27 @@ extension SetupNotificationsViewController : UITableViewDataSource {
     private func switchValueChanged(switchView: UISwitch) {
         UserDefaults.standard.set(switchView.isOn, forKey: "expirationNotification")
         if switchView.isOn {
-            for tok in self.tokens {
-                let date = DateManager.getDateFromString(string: tok.expirationDatetime)
-                print("===== Expiration date =====")
-                print(date)
-                let components = date.get(.year, .month, .day)
-                let currentDate = Date()
-                let currentComponents = currentDate.get(.year, .month, .day)
-                if components.year == currentComponents.year &&
-                    components.month == currentComponents.month &&
-                    components.day == currentComponents.day {
-                    let calendar = Calendar.current
-                    let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
-                    self.dispatchNotification(date: newDate, tokenName: tok.name)
-                    self.dispatchNotification(date: date, tokenName: tok.name)
-                } else {
-                    self.dispatchNotification(date: date, tokenName: tok.name)
-                }
-            }
+            setupNotifications()
         } else {
             let notificationCenter = UNUserNotificationCenter.current()
             notificationCenter.removeAllPendingNotificationRequests()
+        }
+    }
+    
+    private func setupNotifications() {
+        for tok in self.tokens {
+            let calendar = Calendar.current
+            
+            let date = DateManager.getDateFromString(string: tok.expirationDatetime)
+            let resultDate = calendar.date(byAdding: .hour, value: 3, to: date)!
+            print("No")
+            print(resultDate)
+            
+            let currentDate = Date()
+            let newDate = calendar.date(byAdding: .minute, value: 1, to: currentDate)!
+            
+            self.dispatchNotification(date: newDate, tokenName: tok.name, id: "Notification1")
+            self.dispatchNotification(date: resultDate, tokenName: tok.name, id: "Notification2")
         }
     }
 }
